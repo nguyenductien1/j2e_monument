@@ -24,7 +24,7 @@ public interface AppService {
     //Methods for the monuments
     public Monument addMonument(Monument monument);
     public void addMonumentToLieu(String codeM, String codeInsee);
-    public List<Monument> getMonument(String codeM);
+    public Optional<Monument> getMonument(String codeM);
     public List<Monument> getListAllMonuments();
     public float getDistanceBetweenMonuments(String nomMonumentD, String nomMonumentA);
     public List<Monument> getListMonumentsByDep(String nomDep);

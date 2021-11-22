@@ -30,14 +30,7 @@ public class MainController {
           return "This is what i was looking for";                      
      }
 	
-     //Departement
-	/*
-     @RequestMapping(value="/departement/add", method=RequestMethod.POST, headers="Accept=application/json")
-     public Departement addDepartement(@RequestBody Departement departement) {
-         return appService.addDepartement(departement);
-     }*/
-	
-	
+    
 	@RequestMapping(value="/departement/add", method=RequestMethod.POST, headers="Accept=application/json")
     public Departement dep (@RequestBody String departement) {
 		
@@ -87,6 +80,10 @@ public class MainController {
 	public Monument monument(@RequestBody Monument monument){
 		return appService.addMonument(monument);
 	}
-
+	
+	@RequestMapping(value="/monument/all", method=RequestMethod.GET)
+	public List<Monument> getAllMonuments() {
+		return appService.getListAllMonuments();
+	}
     
 }

@@ -1,6 +1,8 @@
 package ico.ductien.proj.monument.service;
 
 import java.util.List;
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -60,25 +62,24 @@ public class AppServiceImplementations implements AppService{
     @Override
     public List<Departement> getListAllDepartements() {
         
-        //return departementRepository.findAll();
         return departementRepository.findAll();
     }
 
     @Override
     public Lieu addLieu(Lieu lieu) {
-        // TODO Auto-generated method stub
+ 
         return lieuRepository.save(lieu);
     }
 
     @Override
     public Lieu getLieu(String codeInsee) {
-        // TODO Auto-generated method stub
+
         return lieuRepository.getLieu(codeInsee);
     }
 
     @Override
     public List<Lieu> getListAllLieux() {
-        // TODO Auto-generated method stub
+
         return lieuRepository.findAll();
     }
 
@@ -91,20 +92,19 @@ public class AppServiceImplementations implements AppService{
 
     @Override
     public void addMonumentToLieu(String codeM, String codeInsee) {
-        // TODO Auto-generated method stub
+        
         
     }
 
     @Override
-    public List<Monument> getMonument(String codeM) {
-        // TODO Auto-generated method stub
-        return null;
+    public Optional<Monument> getMonument(String codeM) { 
+        return monumentRepository.findById(codeM);
     }
 
     @Override
     public List<Monument> getListAllMonuments() {
-        // TODO Auto-generated method stub
-        return null;
+        
+        return monumentRepository.findAll();
     }
 
     @Override

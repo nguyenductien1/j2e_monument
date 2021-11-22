@@ -39,16 +39,12 @@ public class Monument implements Serializable{
 	@Column(name = "latitude")
 	private double latitude;
 
-	/*
+	
     @ManyToOne(cascade = {CascadeType.ALL})
-	@JoinColumn(name="codeLieu", insertable=false ,updatable=false)
+	@JoinColumn(name="codeLieu", insertable= false ,updatable=false)
 	private Lieu lieu;
-	*/
-	@ManyToOne(cascade = CascadeType.ALL, targetEntity = Lieu.class)
-	@JoinColumn(name="codeLieu", insertable=false ,updatable=false)
-	public void setCodeInsee(String codeLieu){
-		this.codeLieu = codeLieu;
-	}
+	
+	
 	
 	@Column(name = "codeLieu", length = 5)
 	private String codeLieu;
