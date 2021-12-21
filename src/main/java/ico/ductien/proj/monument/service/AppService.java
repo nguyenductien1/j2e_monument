@@ -4,6 +4,7 @@ import org.springframework.stereotype.Service;
 
 import ico.ductien.proj.monument.entities.Departement;
 import ico.ductien.proj.monument.entities.Monument;
+import ico.ductien.proj.monument.entities.MonumentPhotos;
 import ico.ductien.proj.monument.entities.Lieu;
 import ico.ductien.proj.monument.entities.Celebrite;
 import java.util.*;
@@ -29,6 +30,8 @@ public interface AppService {
     public float getDistanceBetweenMonuments(String nomMonumentD, String nomMonumentA);
     public List<Monument> getListMonumentsByDep(String nomDep);
     public List<Monument> getListMonumentsByLieu(String nomLieu);
+    public List<String> findPhotosByMonument(String monumentID);
+    public void addPhotosToMonument(MonumentPhotos monumentPhoto);
 
     //Methods for Celebrite 
     public Celebrite addCelebrite(Celebrite celebrite);

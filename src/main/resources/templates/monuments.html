@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8" />
+<title>Liste des Monuments</title>
+</head>
+<body>
+	<h1>Liste des monuments dans notre site</h1>
+	
+	<table>
+		<thead>
+			<tr>
+				<td>Code Monument</td>
+				<td>Nom Monument</td>
+				<td>Proprietaire</td>
+				<td>Type de Monument</td>
+				<td>Longitude</td>
+				<td>Latitude</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each="monument: ${monuments}">
+				<td th:utext="${monument.codeM}"></td>
+				<td th:utext="${monument.nomM}"></td>
+				<td th:utext="${monument.proprietaire}"></td>
+				<td th:utext="${monument.typeMonument}"></td>
+				<td th:utext="${monument.longitude}"></td>
+				<td th:utext="${monument.latitude}"></td>	
+			</tr>
+		
+		</tbody>
+	
+	
+	</table>
+	
+	
+</body>
+</html>

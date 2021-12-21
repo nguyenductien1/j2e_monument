@@ -1,5 +1,8 @@
 package ico.ductien.proj.monument.controllers;
 
+import java.io.UnsupportedEncodingException;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
@@ -9,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -45,11 +49,21 @@ public class UserRestController {
 
 	/* ---------------- CREATE NEW USER ------------------------ */
 	@RequestMapping(value = "/users/add", method = RequestMethod.POST)
-	public ResponseEntity<String> createUser(@RequestBody User user) {
+	public ResponseEntity<String> createUser(@RequestBody User user) throws UnsupportedEncodingException, NoSuchAlgorithmException {
 		if (userService.add(user)) {
 			return new ResponseEntity<String>("Created!", HttpStatus.CREATED);
 		} else {
 			return new ResponseEntity<String>("User Existed!", HttpStatus.BAD_REQUEST);
+		}
+	}
+	
+	/* ---------------- CREATE NEW ADMIN ------------------------ */
+	@RequestMapping(value = "/users/add/admin", method = RequestMethod.POST)
+	public ResponseEntity<String> createUserAdmin(@RequestBody User user) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+		if (userService.addAdmin(user)) {
+			return new ResponseEntity<String>("Created Admin!", HttpStatus.CREATED);
+		} else {
+			return new ResponseEntity<String>("User Admin Existed!", HttpStatus.BAD_REQUEST);
 		}
 	}
 
@@ -59,24 +73,33 @@ public class UserRestController {
 		userService.delete(id);
 		return new ResponseEntity<String>("Deleted!", HttpStatus.OK);
 	}
-
+	
+	/* ---------------- LOGIN ------------------------ */
 	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public ResponseEntity<String> login(HttpServletRequest request, @RequestBody User user) {
+	public ResponseEntity<HashMap> login(HttpServletRequest request, @RequestBody User user) {
 		String result = "";
 		HttpStatus httpStatus = null;
+		String userName = null;
+		HashMap <String, String> resultat = new HashMap<String, String>();
+		 
 		try {
 			if (userService.checkLogin(user)) {
 				result = jwtService.generateTokenLogin(user.getUsername());
+				userName = jwtService.getUsernameFromToken(result);
 				httpStatus = HttpStatus.OK;
+				resultat.put("userName", userName);
+				resultat.put("token", result);
 			} else {
-				result = "Wrong userId and password";
+				result = "Wrong userID and password";
+				resultat.put("error", result);
 				httpStatus = HttpStatus.BAD_REQUEST;
 			}
 		} catch (Exception ex) {
 			result = "Server Error";
+			resultat.put("error", result);
 			httpStatus = HttpStatus.INTERNAL_SERVER_ERROR;
 		}
-		return new ResponseEntity<String>(result, httpStatus);
+		return new ResponseEntity<HashMap>(resultat, httpStatus);
 	}
-
+	
 }

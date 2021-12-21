@@ -42,6 +42,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and().authorizeRequests()
         .antMatchers(HttpMethod.GET, "/user/**").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
         .antMatchers(HttpMethod.POST, "/user/add").permitAll()
+        .antMatchers(HttpMethod.POST, "/user/username").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+        .antMatchers(HttpMethod.POST, "/user/add/admin").access("hasRole('ROLE_ADMIN')")
         .antMatchers(HttpMethod.DELETE, "/user/**").access("hasRole('ROLE_ADMIN')").and()
         .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
         .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());

@@ -3,14 +3,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ico.ductien.proj.monument.entities.User;
 import ico.ductien.proj.monument.repository.UserRepository;
+
+import java.io.UnsupportedEncodingException;
+import java.security.*;
+
+
 @Service
 @Transactional
 public class UserService {
@@ -18,11 +24,7 @@ public class UserService {
 	private UserRepository userRepository;
 	
 	public static List<User> listUser = new ArrayList<User>();
-	  static {
-	    User userKai = new User(1, "dtn", "123456");
-	    userKai.setRoles(new String[] { "ROLE_ADMIN" });
-	    listUser.add(userKai);
-	  }
+	  
 	  
 	  public List<User> findAll() {
 		    return userRepository.findAll();
@@ -32,7 +34,7 @@ public class UserService {
 	    return userRepository.findById(id);
 	  }
 	  
-	  public boolean add(User user) {
+	  public boolean add(User user) throws UnsupportedEncodingException, NoSuchAlgorithmException {
 	    if (userRepository.getUser(user.getUsername()) !=null) {
 	    	return false;
 	    }
@@ -41,16 +43,25 @@ public class UserService {
 	    userRepository.save(user);
 	    return true;
 	  }
+	  
+	  public boolean addAdmin(User user) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+		    if (userRepository.getUser(user.getUsername()) !=null) {
+		    	return false;
+		    }
+		    user.setPassword(hashPw(user.getPassword()));
+		    user.setRoles(new String[] { "ROLE_ADMIN" });
+		    userRepository.save(user);
+		    return true;
+		  }
 	  public void delete(int id) {
 	    userRepository.deleteById(id);
 	  }
-	 //Errors
-	  public boolean checkLogin(User user) {
-		List<User> users = userRepository.findAll();
-		Pbkdf2PasswordEncoder pwc = pwc ();		
+	 //Check login
+	  public boolean checkLogin(User user) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+		List<User> users = userRepository.findAll();	
 	    for (User userExist : users) {
 	      if (StringUtils.equals(user.getUsername(), userExist.getUsername())) {
-	    	  if (pwc.matches(user.getPassword(), userExist.getPassword())) {
+	    	  if (hashPw(user.getPassword()).equals(userExist.getPassword())) {
 	    		  return true;
 	    	  }
 	        return false;
@@ -60,26 +71,17 @@ public class UserService {
 	  }
 
 	public User getUser(String username) {
-		// TODO Auto-generated method stub
+		
 		return userRepository.getUser(username);
 	}
 	
-	public String hashPw(String pw) {
-		String keyEncode = "dtn1122";
-		int iterations = 200;
-		int hashWidth = 256;
-		Pbkdf2PasswordEncoder encoder = new Pbkdf2PasswordEncoder(keyEncode, iterations, hashWidth);
-		encoder.setEncodeHashAsBase64(true);
-		String encodedPw = encoder.encode(pw);
-		
-		return encodedPw;	
+	public String hashPw(String pw) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+	
+		MessageDigest md5 = MessageDigest.getInstance("MD5");
+		String hex = (new HexBinaryAdapter()).marshal(md5.digest(pw.getBytes()));		
+		return hex;	
 		
 	}
-	public Pbkdf2PasswordEncoder pwc () {
-		String keyEncode = "dtn1122";
-		int iterations = 200;
-		int hashWidth = 256;
-		Pbkdf2PasswordEncoder pw = new Pbkdf2PasswordEncoder(keyEncode, iterations, hashWidth);
-		return pw;	
-	}
+	
+	
 }

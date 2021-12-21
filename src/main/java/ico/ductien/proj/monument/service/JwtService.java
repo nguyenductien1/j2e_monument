@@ -73,7 +73,7 @@ public class JwtService {
 	    sharedSecret = SECRET_KEY.getBytes();
 	    return sharedSecret;
 	  }
-	  private Boolean isTokenExpired(String token) {
+	  public Boolean isTokenExpired(String token) {
 	    Date expiration = getExpirationDateFromToken(token);
 	    return expiration.before(new Date());
 	  }

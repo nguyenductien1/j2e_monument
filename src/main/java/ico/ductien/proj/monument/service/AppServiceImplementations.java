@@ -11,10 +11,12 @@ import ico.ductien.proj.monument.entities.Celebrite;
 import ico.ductien.proj.monument.entities.Departement;
 import ico.ductien.proj.monument.entities.Lieu;
 import ico.ductien.proj.monument.entities.Monument;
+import ico.ductien.proj.monument.entities.MonumentPhotos;
 import ico.ductien.proj.monument.repository.CelebriteRepository;
 import ico.ductien.proj.monument.repository.DepartementRepository;
 import ico.ductien.proj.monument.repository.LieuRepository;
 import ico.ductien.proj.monument.repository.MonumentRepository;
+import ico.ductien.proj.monument.repository.MonumentPhotoRepository;
 
 @Service
 @Transactional
@@ -35,6 +37,9 @@ public class AppServiceImplementations implements AppService{
 
 	@Autowired
 	private AppService appService;
+	
+	@Autowired
+	private MonumentPhotoRepository monumentPhotosRepository;
     
 
     @Override
@@ -106,6 +111,18 @@ public class AppServiceImplementations implements AppService{
         
         return monumentRepository.findAll();
     }
+    
+    @Override
+    public List<String> findPhotosByMonument(String monumentID){
+    	
+    	return monumentPhotosRepository.findPhotosByMonument(monumentID);
+    }
+    
+    @Override
+	public void addPhotosToMonument(MonumentPhotos monumentPhoto) {
+		monumentPhotosRepository.save(monumentPhoto);
+		
+	}
 
     @Override
     public float getDistanceBetweenMonuments(String nomMonumentD, String nomMonumentA) {
@@ -130,6 +147,8 @@ public class AppServiceImplementations implements AppService{
         // TODO Auto-generated method stub
         return null;
     }
+
+	
 
 	
     
