@@ -39,6 +39,8 @@ public class Celebrite implements Serializable {
 	@Column(length = 4)
 	private String epoque;
 	
+	@Column(name="photoUrl")
+	private String photoUrl;
 	
 
 	public Celebrite() {
@@ -108,6 +110,15 @@ public class Celebrite implements Serializable {
 		return this;
 	}
 	
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+
+
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
 	
 	@Override
     public String toString() {

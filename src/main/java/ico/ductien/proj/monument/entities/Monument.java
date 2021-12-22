@@ -38,6 +38,9 @@ public class Monument implements Serializable{
 	
 	@Column(name = "latitude")
 	private double latitude;
+	
+	@Column(name = "photoUrl")
+	private String photoUrl;
 
 	
     @ManyToOne(cascade = {CascadeType.ALL})
@@ -143,6 +146,16 @@ public class Monument implements Serializable{
 	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
+	
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+
+
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
 
 	@JsonIgnore
 	public Monument getMonument() {
@@ -153,7 +166,7 @@ public class Monument implements Serializable{
     public String toString() {
         return "Code Monument: " + this.codeM + ", Nom Monument: " + this.nomM + ", Proprietaire: " + this.proprietaire +
         	   ", Type Monument: " + this.typeMonument + ", Longitude: " + this.longitude + ", Latitude: " + this.latitude	+
-        	   ", Localisation: " + this.codeLieu;
+        	   ", Localisation: " + this.codeLieu ;
     }
     
     

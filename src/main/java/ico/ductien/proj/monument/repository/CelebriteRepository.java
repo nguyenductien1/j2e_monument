@@ -26,6 +26,8 @@ public interface CelebriteRepository extends JpaRepository<Celebrite, Long> {
 	
 	//@Query("select c from Celebrite c where  c.nom like:x")
 	public List<Celebrite> findByNomContaining(String nom);
+	@Query("select c from Celebrite c where c.numCelebrite=:x")
+	public Celebrite findCelebirteByNumber(@Param("x") int number);
 	
 	
 	
