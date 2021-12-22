@@ -56,5 +56,11 @@ public class MonumentServiceImplementations implements MonumentService {
 		return null;
 	}
 
+	@Override
+	public Monument findByCode(String codeM) {
+		// TODO Auto-generated method stub
+		return monumentRepository.findByCode(codeM);
+	}
+
 
 }

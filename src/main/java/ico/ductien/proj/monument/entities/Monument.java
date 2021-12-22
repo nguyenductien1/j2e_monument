@@ -16,9 +16,7 @@ import java.util.Set;
 @Entity
 @Table(name = "Monument")
 public class Monument implements Serializable{
-    /**
-	 * insert into monument values ('spfb05nwqmvu','HOTEL DE GANGES','PRIVE','HOTEL_PARTICULIER',3.87639,43.611334,'34172');  
-	 */
+   
 	private static final long serialVersionUID = 1L;
     @Id
     @Column(name = "codeM", length = 12)
@@ -44,13 +42,13 @@ public class Monument implements Serializable{
 
 	
     @ManyToOne(cascade = {CascadeType.ALL})
-	@JoinColumn(name="codeLieu", insertable= false ,updatable=false)
+	@JoinColumn(name="codeLieu", insertable= true ,updatable=true)
 	private Lieu lieu;
 	
 	
 	
-	@Column(name = "codeLieu", length = 5)
-	private String codeLieu;
+//	@Column(name = "codeLieu", length = 5)
+//	private String codeLieu;
 
     @ManyToMany
 	@JoinTable( 
@@ -83,7 +81,7 @@ public class Monument implements Serializable{
 		this.setLatitude(latitude);
 		
 		//lieu = new Lieu(codeLieu);
-		this.codeLieu = codeLieu;
+//		this.codeLieu = codeLieu;
 	}
 	
 	
@@ -161,12 +159,38 @@ public class Monument implements Serializable{
 	public Monument getMonument() {
 		return this;
 	}
+	
+	
+
+	public Lieu getLieu() {
+		return lieu;
+	}
+
+	public void setLieu(Lieu lieu) {
+		this.lieu = lieu;
+	}
+
+//	public String getCodeLieu() {
+//		return codeLieu;
+//	}
+//
+//	public void setCodeLieu(String codeLieu) {
+//		this.codeLieu = codeLieu;
+//	}
+
+	public Set<Celebrite> getAssociea_celebrite() {
+		return associea_celebrite;
+	}
+
+	public void setAssociea_celebrite(Set<Celebrite> associea_celebrite) {
+		this.associea_celebrite = associea_celebrite;
+	}
 
 	@Override
     public String toString() {
         return "Code Monument: " + this.codeM + ", Nom Monument: " + this.nomM + ", Proprietaire: " + this.proprietaire +
         	   ", Type Monument: " + this.typeMonument + ", Longitude: " + this.longitude + ", Latitude: " + this.latitude	+
-        	   ", Localisation: " + this.codeLieu ;
+        	   ", Localisation: " + this.lieu ;
     }
     
     

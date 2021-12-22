@@ -22,7 +22,7 @@ import ico.ductien.proj.monument.service.UserService;
 import ico.ductien.proj.monument.service.JwtService;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/")
 public class UserRestController {
 
 	@Autowired
@@ -32,13 +32,13 @@ public class UserRestController {
 	private UserService userService;
 
 	/* ---------------- GET ALL USER ------------------------ */
-	@RequestMapping(value = "/users", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/users", method = RequestMethod.GET)
 	public ResponseEntity<List<User>> getAllUser() {
 		return new ResponseEntity<List<User>>(userService.findAll(), HttpStatus.OK);
 	}
 
 	/* ---------------- GET USER BY ID ------------------------ */
-	@RequestMapping(value = "/users/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/api/users/{id}", method = RequestMethod.GET)
 	public ResponseEntity<Object> getUserById(@PathVariable int id) {
 		Optional<User> user = userService.findById(id);
 		if (user != null) {
@@ -48,7 +48,7 @@ public class UserRestController {
 	}
 
 	/* ---------------- CREATE NEW USER ------------------------ */
-	@RequestMapping(value = "/users/add", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/users", method = RequestMethod.POST)
 	public ResponseEntity<String> createUser(@RequestBody User user) throws UnsupportedEncodingException, NoSuchAlgorithmException {
 		if (userService.add(user)) {
 			return new ResponseEntity<String>("Created!", HttpStatus.CREATED);
@@ -58,7 +58,7 @@ public class UserRestController {
 	}
 	
 	/* ---------------- CREATE NEW ADMIN ------------------------ */
-	@RequestMapping(value = "/users/add/admin", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/users/admin", method = RequestMethod.POST)
 	public ResponseEntity<String> createUserAdmin(@RequestBody User user) throws UnsupportedEncodingException, NoSuchAlgorithmException {
 		if (userService.addAdmin(user)) {
 			return new ResponseEntity<String>("Created Admin!", HttpStatus.CREATED);
@@ -68,14 +68,14 @@ public class UserRestController {
 	}
 
 	/* ---------------- DELETE USER ------------------------ */
-	@RequestMapping(value = "/users/delete/{id}", method = RequestMethod.DELETE)
+	@RequestMapping(value = "/api/users/{id}", method = RequestMethod.DELETE)
 	public ResponseEntity<String> deleteUserById(@PathVariable int id) {
 		userService.delete(id);
 		return new ResponseEntity<String>("Deleted!", HttpStatus.OK);
 	}
 	
 	/* ---------------- LOGIN ------------------------ */
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
+	@RequestMapping(value = "/api/login", method = RequestMethod.POST)
 	public ResponseEntity<HashMap> login(HttpServletRequest request, @RequestBody User user) {
 		String result = "";
 		HttpStatus httpStatus = null;

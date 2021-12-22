@@ -8,35 +8,30 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.UniqueConstraint;
 
-import org.hibernate.annotations.SQLInsert;
 
 
 @Entity
-@Table(name="celebrite",uniqueConstraints=@UniqueConstraint(columnNames={"nom","prenom","nationalite","epoque"}))
-@SQLInsert(sql = "INSERT IGNORE INTO celebrite(epoque, nationalite,nom, prenom) " +
-"VALUES (?, ?, ?, ?)" )
+@Table(name = "Celebrite")
 public class Celebrite implements Serializable {
-	 /**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)	
+	@Column(name = "numCelebrite")
 	private int numCelebrite;
 	
-	@Column(length = 16)
+	@Column(name = "nom", length = 16)
 	private String nom;
 	
-	@Column(length = 16)
+	@Column(name = "prenom", length = 16)
 	private String prenom;
 	
-	@Column(length = 10)
+	@Column(name = "nationalite", length = 10)
 	private String nationalite;
 	
-	@Column(length = 4)
+	@Column(name = "epoque", length = 4)
 	private String epoque;
 	
 	@Column(name="photoUrl")

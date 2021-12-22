@@ -15,5 +15,6 @@ public interface MonumentService {
     public float getDistanceBetweenMonuments(String nomMonumentD, String nomMonumentA);
     public List<Monument> getListMonumentsByDep(String nomDep);
     public List<Monument> getListMonumentsByLieu(String nomLieu);
+    public Monument findByCode(String codeM);
 
 }

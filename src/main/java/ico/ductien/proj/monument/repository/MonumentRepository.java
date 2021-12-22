@@ -14,6 +14,9 @@ public interface MonumentRepository extends JpaRepository<Monument, String> {
 	
 	
 	public Page<Monument>findByNomM(String nomM, Pageable pageable);
+	
+	@Query("select m from Monument m where m.codeM=:x")
+	public Monument findByCode(@Param("x")String codeM);
 
 
 }

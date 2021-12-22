@@ -37,4 +37,10 @@ public class CelebriteServiceImplementations implements CelebriteService {
 		return (Celebrite) celebriteRepository.findCelebirteByNumber(numberCelebrite);
 	}
 
+	@Override
+	public void setInfoCelebrite(String nom, String prenom, String photoUrl, String nationalite, String epoque, int numCelebrite) {
+		celebriteRepository.setCelebriteInfoById(nom, prenom, photoUrl,nationalite, epoque, numCelebrite);
+		
+	}
+
 }
