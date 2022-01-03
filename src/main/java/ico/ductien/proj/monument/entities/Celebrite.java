@@ -1,18 +1,27 @@
 package ico.ductien.proj.monument.entities;
 
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 
 @Entity
 @Table(name = "Celebrite")
+
 public class Celebrite implements Serializable {
 	
 	private static final long serialVersionUID = 1L;
@@ -37,6 +46,11 @@ public class Celebrite implements Serializable {
 	@Column(name="photoUrl")
 	private String photoUrl;
 	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name= "associeA", joinColumns=@JoinColumn(name="numCelebrite"), inverseJoinColumns=@JoinColumn(name="codeM"))	
+	@JsonBackReference
+	private  Set<Monument> monuments = new HashSet<Monument>();
+	
 
 	public Celebrite() {
 		super();
@@ -44,12 +58,26 @@ public class Celebrite implements Serializable {
 
 
 
-	public Celebrite(String nom, String prenom, String nationalite, String epoque) {
+	public Celebrite(int numCelebrite, String nom, String prenom, String nationalite, String epoque, String photoUrl) {
 		super();
+		this.setNumCelebrite(numCelebrite);
 		this.setNom(nom);
 		this.setPrenom(prenom);
 		this.setNationalite(nationalite);
 		this.setEpoque(epoque);
+		this.setPhotoUrl(photoUrl);
+	}
+
+
+
+	public int getNumCelebrite() {
+		return numCelebrite;
+	}
+
+
+
+	public void setNumCelebrite(int numCelebrite) {
+		this.numCelebrite = numCelebrite;
 	}
 
 
@@ -100,7 +128,7 @@ public class Celebrite implements Serializable {
 		this.epoque = epoque;
 	}
 
-	
+	@JsonIgnore
 	public Celebrite getCelebrite() {
 		return this;
 	}
@@ -114,6 +142,22 @@ public class Celebrite implements Serializable {
 	public void setPhotoUrl(String photoUrl) {
 		this.photoUrl = photoUrl;
 	}
+	
+	
+	
+	/**
+	 * @return the monuments
+	 */
+	public Set<Monument> getMonuments() {
+		return monuments;
+	}
+
+	/**
+	 * @param monuments the monuments to set
+	 */
+	public void setMonuments(Set<Monument> monuments) {
+		this.monuments = monuments;
+    }
 	
 	@Override
     public String toString() {

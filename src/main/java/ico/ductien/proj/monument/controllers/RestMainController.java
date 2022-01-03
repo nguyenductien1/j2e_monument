@@ -1,5 +1,17 @@
 package ico.ductien.proj.monument.controllers;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URI;
+import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -10,26 +22,32 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponentsBuilder;
 import org.springframework.ui.Model;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 
 import java.util.Set;
-
-
+import java.util.UUID;
 
 import ico.ductien.proj.monument.service.*;
 import ico.ductien.proj.monument.entities.*;
 import ico.ductien.proj.monument.repository.DepartementRepository;
 
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 public class RestMainController {
 
- 
 	@Autowired
     private MonumentService monumentService;
 	@Autowired
@@ -39,13 +57,6 @@ public class RestMainController {
 	@Autowired
 	private CelebriteService celebriteService;
 	
-	
-	
-	
-	@RequestMapping("/")
-   	public String home(){
-          return "This is what i was looking for";                      
-     }
 	//-------------------------------DEPARTEMENT----------------------------------------//
     /* Rajouter un département */
 	@RequestMapping(value="/api/departements", method=RequestMethod.POST, headers="Accept=application/json")
@@ -71,9 +82,15 @@ public class RestMainController {
        
 	}
 	
-	public void updateDep(String numDep, Lieu lieu) {
-		departementService.updateDepartement(numDep, numDep);
+	@RequestMapping(value="/api/departements/{numDep}", method=RequestMethod.DELETE, headers="Accept=application/json")
+	public ResponseEntity<String> deleteDepartement (@PathVariable String numDep) {
+		
+		Departement departement = departementService.getDepartement(numDep);
+        departementService.deleteDepartement(departement);
+		return new ResponseEntity<>("Deleted", HttpStatus.ACCEPTED);
+       
 	}
+	
 	
 	/*Méthode pour prendre tous les département*/
     @RequestMapping(value="/api/departements", method=RequestMethod.GET)
@@ -90,13 +107,24 @@ public class RestMainController {
     /*Méthode pour modifier un lieu*/
     @RequestMapping(value="/api/lieux/{id}", method=RequestMethod.PATCH)
     public Lieu editLieu(@RequestBody Lieu lieu,  @PathVariable String id){
-        return lieuService.addLieu(lieu);
+    	Lieu lieuMod = lieuService.getLieu(id);
+    	lieuMod.setCodeInsee(id);
+    	lieuMod.setDep(lieu.getDep());
+    	lieuMod.setNomCom(lieu.getNomCom());
+    	lieuMod.setLatitude(lieu.getLatitude());
+    	lieuMod.setLongitude(lieu.getLongitude());
+        return lieuService.addLieu(lieuMod);
     }
     
     /*Méthode pour supprimer un lieu*/
     @RequestMapping(value="/api/lieux/{id}", method=RequestMethod.DELETE)
-    public Lieu deleteLieu(@RequestBody Lieu lieu,  @PathVariable String id){
-        return lieuService.addLieu(lieu);
+    public  ResponseEntity<String> deleteLieu(@PathVariable String id){
+    	Lieu lieu = lieuService.getLieu(id);
+    	lieu.setDep(null);
+    	lieuService.addLieu(lieu);
+        lieuService.deleteLieu(lieu);
+        
+        return new ResponseEntity<>("Deleted", HttpStatus.ACCEPTED);
     }
     
     /*Méthode pour prendre tous les lieux*/
@@ -108,8 +136,25 @@ public class RestMainController {
     
     /*Methode pour rajouter un monument*/
 	@RequestMapping(value="/api/monuments", method=RequestMethod.POST)
-	public Monument addMonument(@RequestBody Monument monument){
-		return monumentService.addMonument(monument);
+	public ResponseEntity<String> addMonument(@RequestBody String monument){
+		JSONObject monumentJson = new JSONObject(monument);
+		Monument newMonument = new Monument();
+		newMonument.setCodeM(monumentJson.getString("codeM"));
+		newMonument.setNomM(monumentJson.getString("nomM"));
+		if (monumentJson.getString("codeLieu") !=null) {
+			Lieu lieu = lieuService.getLieu(monumentJson.getString("codeLieu"));
+			newMonument.setLieu(lieu);
+		}
+		newMonument.setLongitude(monumentJson.getFloat("longitude"));
+		newMonument.setLatitude(monumentJson.getFloat("latitude"));
+		newMonument.setPhotoUrl(monumentJson.getString("photoUrl"));
+		newMonument.setProprietaire(monumentJson.getString("proprietaire"));
+		newMonument.setTypeMonument(monumentJson.getString("typeMonument"));
+		
+		
+		monumentService.addMonument(newMonument);
+		
+		return new ResponseEntity<String>("CREATED", HttpStatus.CREATED);
 	}
 	
 	/*Methode pour modifier un monument*/
@@ -121,7 +166,6 @@ public class RestMainController {
 		if (monumentJson.getString("codeLieu") !=null) {
 			Lieu lieu = lieuService.getLieu(monumentJson.getString("codeLieu"));
 			monument.setLieu(lieu);
-//			monument.setCodeLieu(monumentJson.getString("codeLieu"));
 		}
 		monument.setLongitude(monumentJson.getFloat("longitude"));
 		monument.setLatitude(monumentJson.getFloat("latitude"));
@@ -136,8 +180,31 @@ public class RestMainController {
 	
 	/*Methode pour prendre tous les monuments*/
 	@RequestMapping(value="/api/monuments", method=RequestMethod.GET)
-	public List<Monument> getAllMonuments() {
-		return monumentService.getListAllMonuments();
+	public ResponseEntity<List<Monument>> getAllMonuments() {
+		
+		List<Monument> monuments = monumentService.getListAllMonuments();
+		return new ResponseEntity<>(monuments, HttpStatus.OK);
+	}
+	
+	/*Methode return les information d'un monument*/
+	@RequestMapping(value="/api/monuments/{codeM}", method=RequestMethod.GET)
+	public ResponseEntity<Monument> getMonumentbyCode(@PathVariable String codeM){
+		
+		Monument monument = monumentService.findByCode(codeM);
+		return new ResponseEntity<Monument>(monument,HttpStatus.OK);
+		
+	}
+	
+	/*Methode delete d'un monument*/
+	@RequestMapping(value="/api/monuments/{codeM}", method=RequestMethod.DELETE)
+	public ResponseEntity<String> deleteMonumentbyCode(@PathVariable String codeM){
+		
+		Monument monument = monumentService.findByCode(codeM);
+		monument.setLieu(null);
+		monumentService.deleteMonument(monument);
+		
+		return new ResponseEntity<String>("DELETED",HttpStatus.ACCEPTED);
+		
 	}
 	
 	/*Méthode pour ajouter un celebrite dans un monument*/
@@ -147,27 +214,39 @@ public class RestMainController {
 		JSONObject monuCelebJSON = new JSONObject(monu_celeb);
 		Monument monument = monumentService.findByCode(monuCelebJSON.getString("codeM"));
 		Celebrite celebrite = celebriteService.findCelebirteByNumber(monuCelebJSON.getInt("numCelebrite"));
-		Set<Celebrite> setCelebrite = monument.getAssociea_celebrite();
+		Set<Celebrite> setCelebrite = monument.getCelebrities();
 		setCelebrite.add(celebrite);
-		monument.setAssociea_celebrite(setCelebrite);
+		monument.setCelebrities(setCelebrite);
 		monumentService.addMonument(monument);
 		
 		return new ResponseEntity<String>("Added", HttpStatus.ACCEPTED);
 	}
 	
+	
+	
 	//----------------------------------CELEBRITES----------------------------------------------//
+	/*Méthode pour prendre tous les célébrites*/
+	@RequestMapping(value="/api/celebrites", method=RequestMethod.GET)
+	public ResponseEntity<List<Celebrite>> getAllCelebrites() {
+		
+		List<Celebrite> celebrites = celebriteService.getAllCelebrite();
+		return new ResponseEntity<>(celebrites, HttpStatus.OK);
+	}
 	
 	/*Méthode pour rajouter un célébrite*/
 	@RequestMapping(value="/api/celebrites", method=RequestMethod.POST)
 	public ResponseEntity<String> addCelebrite(@RequestBody String celebrite){
-		JSONObject celebJSON = new JSONObject(celebrite);
 		
+		JSONObject celebJSON = new JSONObject(celebrite);
 		Celebrite celeb = new Celebrite();
 		celeb.setNom(celebJSON.getString("nom"));
 		celeb.setPrenom(celebJSON.getString("prenom"));
 		celeb.setNationalite(celebJSON.getString("nationalite"));
 		celeb.setEpoque(celebJSON.getString("epoque"));
+		celeb.setPhotoUrl(celebJSON.getString("photoUrl"));
 		celebriteService.addCelebrite(celeb);
+		
+		
 		return new ResponseEntity<String>("Created!", HttpStatus.CREATED);
 		
 	}
@@ -177,9 +256,59 @@ public class RestMainController {
 	public ResponseEntity<String> editCelebrite(@RequestBody String celebrite, @PathVariable int numCelebrite){
 		JSONObject celebJSON = new JSONObject(celebrite);
 		
-		celebriteService.setInfoCelebrite(celebJSON.getString("nom"), celebJSON.getString("prenom"), celebJSON.getString("photoURL"), celebJSON.getString("nationalite"), celebJSON.getString("epoque"), numCelebrite);
+		celebriteService.setInfoCelebrite(celebJSON.getString("nom"), celebJSON.getString("prenom"), celebJSON.getString("photoUrl"), celebJSON.getString("nationalite"), celebJSON.getString("epoque"), numCelebrite);
 		
 		return new ResponseEntity<String>("Modified", HttpStatus.ACCEPTED);
+	}
+	
+	/*Méthode pour delete un célébrite*/
+	@RequestMapping(value="/api/celebrites/{numCelebrite}", method=RequestMethod.DELETE)
+	public ResponseEntity<String> deleteCelebrite(@PathVariable int numCelebrite){
+		
+		Celebrite celebrite = celebriteService.findCelebirteByNumber(numCelebrite);
+		celebrite.setMonuments(null);
+		celebriteService.deleteCelebrite(celebrite);
+		
+		return new ResponseEntity<String>("deleted", HttpStatus.ACCEPTED);
+	}
+	
+	/*-----------------------------------POUR UPLOAD PHOTO------------------------------------------------------------*/
+	/*Méthode pour upload photos*/
+	@RequestMapping(value="/api/upload", method=RequestMethod.POST)
+	public ResponseEntity<String> uploadPhoto(@RequestParam("file") MultipartFile photo) throws IOException{
+		
+		String originalFileName = photo.getOriginalFilename();
+		Optional<String> extension = Optional.ofNullable(originalFileName).filter(f -> f.contains("."))
+			      .map(f -> f.substring(originalFileName.lastIndexOf(".") + 1));
+		String fileName = UUID.randomUUID().toString() + '.'+extension.get();
+		
+		String rootPath = "./src/main/upload/static/";
+		File dir = new File(rootPath + File.separator + "images");
+		if (!dir.exists()) {dir.mkdir();}
+		
+		File serverFile = new File(dir.getAbsolutePath()+File.separator+fileName);
+		
+		BufferedOutputStream stream = new BufferedOutputStream(new FileOutputStream(serverFile));
+		stream.write(photo.getBytes());
+		stream.close();
+		
+		String fileUri = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/photos/").path(fileName).toUriString(); 
+		
+		return new ResponseEntity<>(fileUri, HttpStatus.OK);
+		
+	}
+	
+	/*Méthode pour récuperer les photos*/
+	@RequestMapping(value="/api/photos/{filename:.+}", method=RequestMethod.GET)
+	public ResponseEntity<Resource> downloadFile(@PathVariable String filename) throws MalformedURLException{
+		
+		String rootPath = "./src/main/upload/static/";
+		File file = new File(rootPath + File.separator + "images/"+filename);
+		Resource resource = new UrlResource(file.toURI());
+	
+		return ResponseEntity.ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                .body(resource);
 	}
     
 }

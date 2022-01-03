@@ -62,5 +62,11 @@ public class MonumentServiceImplementations implements MonumentService {
 		return monumentRepository.findByCode(codeM);
 	}
 
+	@Override
+	public void deleteMonument(Monument monument) {
+		monumentRepository.delete(monument);
+		
+	}
+
 
 }

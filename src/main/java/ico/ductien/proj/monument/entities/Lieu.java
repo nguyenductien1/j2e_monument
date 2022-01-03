@@ -96,7 +96,7 @@ public class Lieu implements Serializable{
 
 
 
-	public double getLongitude() {
+	public float getLongitude() {
 		return this.longitude;
 	}
 
@@ -110,7 +110,7 @@ public class Lieu implements Serializable{
 
 
 
-	public double getLatitude() {
+	public float getLatitude() {
 		return this.latitude;
 	}
 

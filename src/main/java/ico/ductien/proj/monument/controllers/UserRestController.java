@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -20,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import ico.ductien.proj.monument.entities.User;
 import ico.ductien.proj.monument.service.UserService;
 import ico.ductien.proj.monument.service.JwtService;
-
+@CrossOrigin(origins = "http://localhost:8081")
 @RestController
 @RequestMapping("/")
 public class UserRestController {
@@ -80,15 +81,20 @@ public class UserRestController {
 		String result = "";
 		HttpStatus httpStatus = null;
 		String userName = null;
+		String roles =null;
+		User userDetails;
 		HashMap <String, String> resultat = new HashMap<String, String>();
 		 
 		try {
 			if (userService.checkLogin(user)) {
 				result = jwtService.generateTokenLogin(user.getUsername());
 				userName = jwtService.getUsernameFromToken(result);
+				userDetails = userService.getUser(userName);
+				roles = userDetails.getAuthorities().toString();
 				httpStatus = HttpStatus.OK;
 				resultat.put("userName", userName);
 				resultat.put("token", result);
+				resultat.put("roles", roles);
 			} else {
 				result = "Wrong userID and password";
 				resultat.put("error", result);

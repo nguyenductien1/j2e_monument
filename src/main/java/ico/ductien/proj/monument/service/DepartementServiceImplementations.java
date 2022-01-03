@@ -48,4 +48,11 @@ public class DepartementServiceImplementations implements DepartementService {
         return departementRepository.findAll();
     }
 
+	@Override
+	public void deleteDepartement(Departement departement) {
+		departementRepository.delete(departement);
+	}
+
+	
+
 }

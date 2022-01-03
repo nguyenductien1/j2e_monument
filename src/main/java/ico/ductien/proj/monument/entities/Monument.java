@@ -10,7 +10,10 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 import java.util.Set;
 @Entity
@@ -46,19 +49,12 @@ public class Monument implements Serializable{
 	private Lieu lieu;
 	
 	
-	
-//	@Column(name = "codeLieu", length = 5)
-//	private String codeLieu;
 
-    @ManyToMany
-	@JoinTable( 
-	    joinColumns = @JoinColumn( name = "code_m" ),
-	    inverseJoinColumns = @JoinColumn( name = "num_celebrite" ) 
-    )
-	private Set<Celebrite> associea_celebrite;
+    @ManyToMany(cascade=CascadeType.ALL)  
+    @JoinTable(name= "associeA", joinColumns=@JoinColumn(name="codeM"), inverseJoinColumns=@JoinColumn(name="numCelebrite"))
+    @JsonManagedReference
+	private Set<Celebrite> celebrities;
 
-
-	
 	public Monument() {
 		super();
 	}
@@ -80,8 +76,7 @@ public class Monument implements Serializable{
 		this.setLongitude(longitude);
 		this.setLatitude(latitude);
 		
-		//lieu = new Lieu(codeLieu);
-//		this.codeLieu = codeLieu;
+		
 	}
 	
 	
@@ -170,20 +165,13 @@ public class Monument implements Serializable{
 		this.lieu = lieu;
 	}
 
-//	public String getCodeLieu() {
-//		return codeLieu;
-//	}
-//
-//	public void setCodeLieu(String codeLieu) {
-//		this.codeLieu = codeLieu;
-//	}
 
-	public Set<Celebrite> getAssociea_celebrite() {
-		return associea_celebrite;
+	public Set<Celebrite> getCelebrities() {
+		return celebrities;
 	}
 
-	public void setAssociea_celebrite(Set<Celebrite> associea_celebrite) {
-		this.associea_celebrite = associea_celebrite;
+	public void setCelebrities(Set<Celebrite> celebrities) {
+		this.celebrities = celebrities;
 	}
 
 	@Override

@@ -19,6 +19,9 @@ public interface CelebriteRepository extends JpaRepository<Celebrite, Long> {
 	@Query("select c from Celebrite c where  c.nom=:x")
 	public Celebrite getCelebrite(@Param("x") String nom);
 	
+	@Query("select c from Celebrite c")
+	public List<Celebrite> getAllCelebrites();
+	
 	@Query("select c from Celebrite c where  c.nom like :x")
 	public Page<Celebrite> findCelebritetByName(@Param("x")String mc, Pageable pageable);
 	

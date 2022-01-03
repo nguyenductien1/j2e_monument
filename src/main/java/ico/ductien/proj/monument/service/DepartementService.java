@@ -12,4 +12,5 @@ public interface DepartementService {
     public Departement getDepartement(String numDep);
     public Departement updateDepartement(String numInseeChefLieu, String numdep);
     public List<Departement> getListAllDepartements();
+    public void deleteDepartement(Departement departement);
 }
