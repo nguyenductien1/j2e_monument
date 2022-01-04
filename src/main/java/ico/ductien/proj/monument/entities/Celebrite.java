@@ -7,6 +7,7 @@ import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -46,8 +47,7 @@ public class Celebrite implements Serializable {
 	@Column(name="photoUrl")
 	private String photoUrl;
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name= "associeA", joinColumns=@JoinColumn(name="numCelebrite"), inverseJoinColumns=@JoinColumn(name="codeM"))	
+	@ManyToMany(mappedBy="celebrities", fetch = FetchType.EAGER)
 	@JsonBackReference
 	private  Set<Monument> monuments = new HashSet<Monument>();
 	
@@ -56,8 +56,7 @@ public class Celebrite implements Serializable {
 		super();
 	}
 
-
-
+		
 	public Celebrite(int numCelebrite, String nom, String prenom, String nationalite, String epoque, String photoUrl) {
 		super();
 		this.setNumCelebrite(numCelebrite);

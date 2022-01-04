@@ -53,6 +53,12 @@ public class DepartementServiceImplementations implements DepartementService {
 		departementRepository.delete(departement);
 	}
 
+	@Override
+	public List<Lieu> findLieuxByCodeDep(String dep) {
+		
+		return departementRepository.findLieuxByCodeDep(dep);
+	}
+
 	
 
 }

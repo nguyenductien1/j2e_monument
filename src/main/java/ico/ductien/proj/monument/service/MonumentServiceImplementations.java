@@ -2,6 +2,7 @@ package ico.ductien.proj.monument.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import ico.ductien.proj.monument.entities.Monument;
 import ico.ductien.proj.monument.repository.MonumentRepository;
+import ico.ductien.proj.monument.entities.Celebrite;
 
 @Service
 @Transactional
@@ -67,6 +69,24 @@ public class MonumentServiceImplementations implements MonumentService {
 		monumentRepository.delete(monument);
 		
 	}
+
+	@Override
+	public void saveMonument(Set<Celebrite> celebrite, String codeM) {
+		// TODO Auto-generated method stub
+		monumentRepository.setMonumentCelebrite(celebrite, codeM);
+		
+		
+	}
+	
+	@Override
+	public Monument saveMonumentV2(Monument monument) {
+		// TODO Auto-generated method stub
+		return monumentRepository.saveAndFlush(monument);
+		
+		
+	}
+	
+
 
 
 }

@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import ico.ductien.proj.monument.entities.Lieu;
+import ico.ductien.proj.monument.entities.Monument;
 import ico.ductien.proj.monument.repository.LieuRepository;
 
 @Service
@@ -32,6 +33,12 @@ public class LieuServiceImplementations implements LieuService{
 	@Override
 	public List<Lieu> getListAllLieux() {
 		return lieuRepository.findAll();
+	}
+
+	@Override
+	public List<Monument> getMonumentsbyLieu(String codeInsee) {
+		
+		return lieuRepository.getMonumentsbyLieu(codeInsee);
 	}
 	
 }

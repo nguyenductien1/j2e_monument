@@ -8,6 +8,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import ico.ductien.proj.monument.entities.Departement;
+import ico.ductien.proj.monument.entities.Lieu;
 
 @Repository
 public interface DepartementRepository extends JpaRepository<Departement, String> {
@@ -18,6 +19,9 @@ public interface DepartementRepository extends JpaRepository<Departement, String
 	public List<Departement> findDepartementBynomDep(String nomDep);
 	
 	public List<Departement> findByNomDepContaining(String nomDep);
+	
+	@Query("select l from Lieu l, Departement d where l.dep = d.dep and d.dep=:x")
+	public List<Lieu> findLieuxByCodeDep(@Param("x") String dep);
 
 
 }

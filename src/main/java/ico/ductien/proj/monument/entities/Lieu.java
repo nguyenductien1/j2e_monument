@@ -51,8 +51,6 @@ public class Lieu implements Serializable{
 	}
 	
 
-	// 		Lieu l1 = new Lieu("34172","MONTPELLIER",3.876716,43.610769,"34");
-
 
 	public Lieu(String codeInsee, String nomCom, Float longitude, Float latitude, String dep) {
 		super();

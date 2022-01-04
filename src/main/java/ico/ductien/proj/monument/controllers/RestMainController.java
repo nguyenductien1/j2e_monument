@@ -81,13 +81,30 @@ public class RestMainController {
         return departementService.updateDepartement(codeInseeChefLieu, numDep);
        
 	}
-	
+	/*Delete un département*/
 	@RequestMapping(value="/api/departements/{numDep}", method=RequestMethod.DELETE, headers="Accept=application/json")
 	public ResponseEntity<String> deleteDepartement (@PathVariable String numDep) {
 		
 		Departement departement = departementService.getDepartement(numDep);
         departementService.deleteDepartement(departement);
 		return new ResponseEntity<>("Deleted", HttpStatus.ACCEPTED);
+       
+	}
+	
+	/*Details un département*/
+	@RequestMapping(value="/api/departements/{numDep}", method=RequestMethod.GET, headers="Accept=application/json")
+	public ResponseEntity<Departement> getDetailsDepartement (@PathVariable String numDep) {
+		
+		Departement departement = departementService.getDepartement(numDep);
+		return new ResponseEntity<>(departement, HttpStatus.OK);
+       
+	}
+	/*Get all lieux by département*/
+	@RequestMapping(value="/api/departements/lieux/{numDep}", method=RequestMethod.GET, headers="Accept=application/json")
+	public ResponseEntity<List<Lieu>> getLieuxByDepartement (@PathVariable String numDep) {
+        
+		List<Lieu> lieux = departementService.findLieuxByCodeDep(numDep);
+		return new ResponseEntity<List<Lieu>>(lieux, HttpStatus.OK);
        
 	}
 	
@@ -103,7 +120,12 @@ public class RestMainController {
     public Lieu addLieu(@RequestBody Lieu lieu){
         return lieuService.addLieu(lieu);
     }
-    
+    /*Méthode pour get details d'un lieu*/
+    @RequestMapping(value="/api/lieux/{codeInsee}", method=RequestMethod.GET)
+    public  ResponseEntity<Lieu> getDetailsLieu(@PathVariable String codeInsee){
+    	Lieu lieu = lieuService.getLieu(codeInsee);
+        return new ResponseEntity<Lieu>(lieu, HttpStatus.OK);
+    }
     /*Méthode pour modifier un lieu*/
     @RequestMapping(value="/api/lieux/{id}", method=RequestMethod.PATCH)
     public Lieu editLieu(@RequestBody Lieu lieu,  @PathVariable String id){
@@ -132,6 +154,15 @@ public class RestMainController {
 	public List<Lieu> getAllLieux() {
 		return lieuService.getListAllLieux();
 	}
+    
+    /*Méthode pour get all monument by Lieu*/
+    @RequestMapping(value="/api/lieux/monuments/{codeInsee}", method=RequestMethod.GET)
+    public  ResponseEntity<List<Monument>> getMonumentsbyLieux(@PathVariable String codeInsee){
+    	
+        List<Monument> monuments = lieuService.getMonumentsbyLieu(codeInsee);
+        
+        return new ResponseEntity<>(monuments, HttpStatus.ACCEPTED);
+    }
     //---------------------------------MONUMENTS--------------------------------------------//
     
     /*Methode pour rajouter un monument*/
@@ -217,9 +248,24 @@ public class RestMainController {
 		Set<Celebrite> setCelebrite = monument.getCelebrities();
 		setCelebrite.add(celebrite);
 		monument.setCelebrities(setCelebrite);
-		monumentService.addMonument(monument);
+		//monumentService.saveMonument(setCelebrite, monuCelebJSON.getString("codeM"));
+		monumentService.saveMonumentV2(monument);
 		
 		return new ResponseEntity<String>("Added", HttpStatus.ACCEPTED);
+	}
+	
+	/*Méthode pour delete un celebrite dans un monument*/
+	@RequestMapping(value="/api/monuments/celebrites/{codeM}/{numCelebrite}", method=RequestMethod.DELETE )
+	public ResponseEntity<String> deleteCelebriteFromMonument(@PathVariable String codeM, @PathVariable String numCelebrite){
+		
+		Monument monument = monumentService.findByCode(codeM);
+		Celebrite celebrite = celebriteService.findCelebirteByNumber(Integer.parseInt(numCelebrite));
+		Set<Celebrite> setCelebrite = monument.getCelebrities();
+		setCelebrite.remove(celebrite);
+		monument.setCelebrities(setCelebrite);
+		monumentService.saveMonumentV2(monument);
+		
+		return new ResponseEntity<String>("Deleted", HttpStatus.ACCEPTED);
 	}
 	
 	
@@ -250,6 +296,24 @@ public class RestMainController {
 		return new ResponseEntity<String>("Created!", HttpStatus.CREATED);
 		
 	}
+	/*Méthode pour récupéer un célébrite*/
+	@RequestMapping(value="/api/celebrites/{numCelebrite}", method=RequestMethod.GET)
+	public ResponseEntity<Celebrite> getDetailCelebrite(@PathVariable int numCelebrite){
+		
+		Celebrite celebrite = celebriteService.findCelebirteByNumber(numCelebrite);
+		
+		return new ResponseEntity<Celebrite>(celebrite, HttpStatus.OK);
+	}
+	
+	/*Méthode pour monuments dans un célébrite*/
+	@RequestMapping(value="/api/celebrites/monuments/{numCelebrite}", method=RequestMethod.GET)
+	public ResponseEntity<Set<Monument>> getMonumentsByCelebrite(@PathVariable int numCelebrite){
+		
+		Celebrite celebrite = celebriteService.findCelebirteByNumber(numCelebrite);
+		Set<Monument> monuments = celebrite.getMonuments();
+		
+		return new ResponseEntity<Set<Monument>>(monuments, HttpStatus.OK);
+	}
 	
 	/*Méthode pour modifier un célébrite*/
 	@RequestMapping(value="/api/celebrites/{numCelebrite}", method=RequestMethod.PATCH)
@@ -260,6 +324,7 @@ public class RestMainController {
 		
 		return new ResponseEntity<String>("Modified", HttpStatus.ACCEPTED);
 	}
+	
 	
 	/*Méthode pour delete un célébrite*/
 	@RequestMapping(value="/api/celebrites/{numCelebrite}", method=RequestMethod.DELETE)
