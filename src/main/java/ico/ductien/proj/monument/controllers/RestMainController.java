@@ -64,7 +64,7 @@ public class RestMainController {
 		
 		JSONObject depJSON = new JSONObject(departement);
 		String nomDep = depJSON.getString("nomDep");
-		String chefLieu = depJSON.getString("chefLieu");
+		String chefLieu = depJSON.getJSONObject("chefLieu").getString("codeInsee");
 		String dep = depJSON.getString("dep");
 		String reg = depJSON.getString("reg");
 		Lieu chef = lieuService.getLieu(chefLieu);

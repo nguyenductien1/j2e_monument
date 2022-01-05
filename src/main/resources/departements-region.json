@@ -1,0 +1,608 @@
+[
+  {
+    "dep": "01",
+    "nomDep": "Ain",
+    "chefLieu":"",
+    "reg": "Auvergne-Rhône-Alpes"
+  },
+  {
+    "dep": "02",
+    "nomDep": "Aisne",
+    "chefLieu":"",
+    "reg": "Hauts-de-France"
+  },
+  {
+    "dep": "03",
+    "nomDep": "Allier",
+    "chefLieu":"",
+    "reg": "Auvergne-Rhône-Alpes"
+  },
+  {
+    "dep": "04",
+    "nomDep": "Alpes-de-Haute-Provence",
+    "chefLieu":"",
+    "reg": "Provence-Alpes-Côte d'Azur"
+  },
+  {
+    "dep": "05",
+    "nomDep": "Hautes-Alpes",
+    "chefLieu":"",
+    "reg": "Provence-Alpes-Côte d'Azur"
+  },
+  {
+    "dep": "06",
+    "nomDep": "Alpes-Maritimes",
+    "chefLieu":"",
+    "reg": "Provence-Alpes-Côte d'Azur"
+  },
+  {
+    "dep": "07",
+    "nomDep": "Ardèche",
+    "chefLieu":"",
+    "reg": "Auvergne-Rhône-Alpes"
+  },
+  {
+    "dep": "08",
+    "nomDep": "Ardennes",
+    "chefLieu":"",
+    "reg": "Grand Est"
+  },
+  {
+    "dep": "09",
+    "nomDep": "Ariège",
+    "chefLieu":"",
+    "reg": "Occitanie"
+  },
+  {
+    "dep": 10,
+    "nomDep": "Aube",
+    "chefLieu":"",
+    "reg": "Grand Est"
+  },
+  {
+    "dep": 11,
+    "nomDep": "Aude",
+    "chefLieu":"",
+    "reg": "Occitanie"
+  },
+  {
+    "dep": 12,
+    "nomDep": "Aveyron",
+    "chefLieu":"",
+    "reg": "Occitanie"
+  },
+  {
+    "dep": 13,
+    "nomDep": "Bouches-du-Rhône",
+    "chefLieu":"",
+    "reg": "Provence-Alpes-Côte d'Azur"
+  },
+  {
+    "dep": 14,
+    "nomDep": "Calvados",
+    "chefLieu":"",
+    "reg": "Normandie"
+  },
+  {
+    "dep": 15,
+    "nomDep": "Cantal",
+    "chefLieu":"",
+    "reg": "Auvergne-Rhône-Alpes"
+  },
+  {
+    "dep": 16,
+    "nomDep": "Charente",
+    "chefLieu":"",
+    "reg": "Nouvelle-Aquitaine"
+  },
+  {
+    "dep": 17,
+    "nomDep": "Charente-Maritime",
+    "chefLieu":"",
+    "reg": "Nouvelle-Aquitaine"
+  },
+  {
+    "dep": 18,
+    "nomDep": "Cher",
+    "chefLieu":"",
+    "reg": "Centre-Val de Loire"
+  },
+  {
+    "dep": 19,
+    "nomDep": "Corrèze",
+    "chefLieu":"",
+    "reg": "Nouvelle-Aquitaine"
+  },
+  {
+    "dep": 21,
+    "nomDep": "Côte-d'Or",
+    "chefLieu":"",
+    "reg": "Bourgogne-Franche-Comté"
+  },
+  {
+    "dep": 22,
+    "nomDep": "Côtes-d'Armor",
+    "chefLieu":"",
+    "reg": "Bretagne"
+  },
+  {
+    "dep": 23,
+    "nomDep": "Creuse",
+    "chefLieu":"",
+    "reg": "Nouvelle-Aquitaine"
+  },
+  {
+    "dep": 24,
+    "nomDep": "Dordogne",
+    "chefLieu":"",
+    "reg": "Nouvelle-Aquitaine"
+  },
+  {
+    "dep": 25,
+    "nomDep": "Doubs",
+    "chefLieu":"",
+    "reg": "Bourgogne-Franche-Comté"
+  },
+  {
+    "dep": 26,
+    "nomDep": "Drôme",
+    "chefLieu":"",
+    "reg": "Auvergne-Rhône-Alpes"
+  },
+  {
+    "dep": 27,
+    "nomDep": "Eure",
+    "chefLieu":"",
+    "reg": "Normandie"
+  },
+  {
+    "dep": 28,
+    "nomDep": "Eure-et-Loir",
+    "chefLieu":"",
+    "reg": "Centre-Val de Loire"
+  },
+  {
+    "dep": 29,
+    "nomDep": "Finistère",
+    "chefLieu":"",
+    "reg": "Bretagne"
+  },
+  {
+    "dep": "2A",
+    "nomDep": "Corse-du-Sud",
+    "chefLieu":"",
+    "reg": "Corse"
+  },
+  {
+    "dep": "2B",
+    "nomDep": "Haute-Corse",
+    "chefLieu":"",
+    "reg": "Corse"
+  },
+  {
+    "dep": 30,
+    "nomDep": "Gard",
+    "chefLieu":"",
+    "reg": "Occitanie"
+  },
+  {
+    "dep": 31,
+    "nomDep": "Haute-Garonne",
+    "chefLieu":"",
+    "reg": "Occitanie"
+  },
+  {
+    "dep": 32,
+    "nomDep": "Gers",
+    "chefLieu":"",
+    "reg": "Occitanie"
+  },
+  {
+    "dep": 33,
+    "nomDep": "Gironde",
+    "chefLieu":"",
+    "reg": "Nouvelle-Aquitaine"
+  },
+  {
+    "dep": 34,
+    "nomDep": "Hérault",
+    "chefLieu":"",
+    "reg": "Occitanie"
+  },
+  {
+    "dep": 35,
+    "nomDep": "Ille-et-Vilaine",
+    "chefLieu":"",
+    "reg": "Bretagne"
+  },
+  {
+    "dep": 36,
+    "nomDep": "Indre",
+    "chefLieu":"",
+    "reg": "Centre-Val de Loire"
+  },
+  {
+    "dep": 37,
+    "nomDep": "Indre-et-Loire",
+    "chefLieu":"",
+    "reg": "Centre-Val de Loire"
+  },
+  {
+    "dep": 38,
+    "nomDep": "Isère",
+    "chefLieu":"",
+    "reg": "Auvergne-Rhône-Alpes"
+  },
+  {
+    "dep": 39,
+    "nomDep": "Jura",
+    "chefLieu":"",
+    "reg": "Bourgogne-Franche-Comté"
+  },
+  {
+    "dep": 40,
+    "nomDep": "Landes",
+    "chefLieu":"",
+    "reg": "Nouvelle-Aquitaine"
+  },
+  {
+    "dep": 41,
+    "nomDep": "Loir-et-Cher",
+    "chefLieu":"",
+    "reg": "Centre-Val de Loire"
+  },
+  {
+    "dep": 42,
+    "nomDep": "Loire",
+    "chefLieu":"",
+    "reg": "Auvergne-Rhône-Alpes"
+  },
+  {
+    "dep": 43,
+    "nomDep": "Haute-Loire",
+    "chefLieu":"",
+    "reg": "Auvergne-Rhône-Alpes"
+  },
+  {
+    "dep": 44,
+    "nomDep": "Loire-Atlantique",
+    "chefLieu":"",
+    "reg": "Pays de la Loire"
+  },
+  {
+    "dep": 45,
+    "nomDep": "Loiret",
+    "chefLieu":"",
+    "reg": "Centre-Val de Loire"
+  },
+  {
+    "dep": 46,
+    "nomDep": "Lot",
+    "chefLieu":"",
+    "reg": "Occitanie"
+  },
+  {
+    "dep": 47,
+    "nomDep": "Lot-et-Garonne",
+    "chefLieu":"",
+    "reg": "Nouvelle-Aquitaine"
+  },
+  {
+    "dep": 48,
+    "nomDep": "Lozère",
+    "chefLieu":"",
+    "reg": "Occitanie"
+  },
+  {
+    "dep": 49,
+    "nomDep": "Maine-et-Loire",
+    "chefLieu":"",
+    "reg": "Pays de la Loire"
+  },
+  {
+    "dep": 50,
+    "nomDep": "Manche",
+    "chefLieu":"",
+    "reg": "Normandie"
+  },
+  {
+    "dep": 51,
+    "nomDep": "Marne",
+    "chefLieu":"",
+    "reg": "Grand Est"
+  },
+  {
+    "dep": 52,
+    "nomDep": "Haute-Marne",
+    "chefLieu":"",
+    "reg": "Grand Est"
+  },
+  {
+    "dep": 53,
+    "nomDep": "Mayenne",
+    "chefLieu":"",
+    "reg": "Pays de la Loire"
+  },
+  {
+    "dep": 54,
+    "nomDep": "Meurthe-et-Moselle",
+    "chefLieu":"",
+    "reg": "Grand Est"
+  },
+  {
+    "dep": 55,
+    "nomDep": "Meuse",
+    "chefLieu":"",
+    "reg": "Grand Est"
+  },
+  {
+    "dep": 56,
+    "nomDep": "Morbihan",
+    "chefLieu":"",
+    "reg": "Bretagne"
+  },
+  {
+    "dep": 57,
+    "nomDep": "Moselle",
+    "chefLieu":"",
+    "reg": "Grand Est"
+  },
+  {
+    "dep": 58,
+    "nomDep": "Nièvre",
+    "chefLieu":"",
+    "reg": "Bourgogne-Franche-Comté"
+  },
+  {
+    "dep": 59,
+    "nomDep": "Nord",
+    "chefLieu":"",
+    "reg": "Hauts-de-France"
+  },
+  {
+    "dep": 60,
+    "nomDep": "Oise",
+    "chefLieu":"",
+    "reg": "Hauts-de-France"
+  },
+  {
+    "dep": 61,
+    "nomDep": "Orne",
+    "chefLieu":"",
+    "reg": "Normandie"
+  },
+  {
+    "dep": 62,
+    "nomDep": "Pas-de-Calais",
+    "chefLieu":"",
+    "reg": "Hauts-de-France"
+  },
+  {
+    "dep": 63,
+    "nomDep": "Puy-de-Dôme",
+    "chefLieu":"",
+    "reg": "Auvergne-Rhône-Alpes"
+  },
+  {
+    "dep": 64,
+    "nomDep": "Pyrénées-Atlantiques",
+    "chefLieu":"",
+    "reg": "Nouvelle-Aquitaine"
+  },
+  {
+    "dep": 65,
+    "nomDep": "Hautes-Pyrénées",
+    "chefLieu":"",
+    "reg": "Occitanie"
+  },
+  {
+    "dep": 66,
+    "nomDep": "Pyrénées-Orientales",
+    "chefLieu":"",
+    "reg": "Occitanie"
+  },
+  {
+    "dep": 67,
+    "nomDep": "Bas-Rhin",
+    "chefLieu":"",
+    "reg": "Grand Est"
+  },
+  {
+    "dep": 68,
+    "nomDep": "Haut-Rhin",
+    "chefLieu":"",
+    "reg": "Grand Est"
+  },
+  {
+    "dep": 69,
+    "nomDep": "Rhône",
+    "chefLieu":"",
+    "reg": "Auvergne-Rhône-Alpes"
+  },
+  {
+    "dep": 70,
+    "nomDep": "Haute-Saône",
+    "chefLieu":"",
+    "reg": "Bourgogne-Franche-Comté"
+  },
+  {
+    "dep": 71,
+    "nomDep": "Saône-et-Loire",
+    "chefLieu":"",
+    "reg": "Bourgogne-Franche-Comté"
+  },
+  {
+    "dep": 72,
+    "nomDep": "Sarthe",
+    "chefLieu":"",
+    "reg": "Pays de la Loire"
+  },
+  {
+    "dep": 73,
+    "nomDep": "Savoie",
+    "chefLieu":"",
+    "reg": "Auvergne-Rhône-Alpes"
+  },
+  {
+    "dep": 74,
+    "nomDep": "Haute-Savoie",
+    "chefLieu":"",
+    "reg": "Auvergne-Rhône-Alpes"
+  },
+  {
+    "dep": 75,
+    "nomDep": "Paris",
+    "chefLieu":"",
+    "reg": "Île-de-France"
+  },
+  {
+    "dep": 76,
+    "nomDep": "Seine-Maritime",
+    "chefLieu":"",
+    "reg": "Normandie"
+  },
+  {
+    "dep": 77,
+    "nomDep": "Seine-et-Marne",
+    "chefLieu":"",
+    "reg": "Île-de-France"
+  },
+  {
+    "dep": 78,
+    "nomDep": "Yvelines",
+    "chefLieu":"",
+    "reg": "Île-de-France"
+  },
+  {
+    "dep": 79,
+    "nomDep": "Deux-Sèvres",
+    "chefLieu":"",
+    "reg": "Nouvelle-Aquitaine"
+  },
+  {
+    "dep": 80,
+    "nomDep": "Somme",
+    "chefLieu":"",
+    "reg": "Hauts-de-France"
+  },
+  {
+    "dep": 81,
+    "nomDep": "Tarn",
+    "chefLieu":"",
+    "reg": "Occitanie"
+  },
+  {
+    "dep": 82,
+    "nomDep": "Tarn-et-Garonne",
+    "chefLieu":"",
+    "reg": "Occitanie"
+  },
+  {
+    "dep": 83,
+    "nomDep": "Var",
+    "chefLieu":"",
+    "reg": "Provence-Alpes-Côte d'Azur"
+  },
+  {
+    "dep": 84,
+    "nomDep": "Vaucluse",
+    "chefLieu":"",
+    "reg": "Provence-Alpes-Côte d'Azur"
+  },
+  {
+    "dep": 85,
+    "nomDep": "Vendée",
+    "chefLieu":"",
+    "reg": "Pays de la Loire"
+  },
+  {
+    "dep": 86,
+    "nomDep": "Vienne",
+    "chefLieu":"",
+    "reg": "Nouvelle-Aquitaine"
+  },
+  {
+    "dep": 87,
+    "nomDep": "Haute-Vienne",
+    "chefLieu":"",
+    "reg": "Nouvelle-Aquitaine"
+  },
+  {
+    "dep": 88,
+    "nomDep": "Vosges",
+    "chefLieu":"",
+    "reg": "Grand Est"
+  },
+  {
+    "dep": 89,
+    "nomDep": "Yonne",
+    "chefLieu":"",
+    "reg": "Bourgogne-Franche-Comté"
+  },
+  {
+    "dep": 90,
+    "nomDep": "Territoire de Belfort",
+    "chefLieu":"",
+    "reg": "Bourgogne-Franche-Comté"
+  },
+  {
+    "dep": 91,
+    "nomDep": "Essonne",
+    "chefLieu":"",
+    "reg": "Île-de-France"
+  },
+  {
+    "dep": 92,
+    "nomDep": "Hauts-de-Seine",
+    "chefLieu":"",
+    "reg": "Île-de-France"
+  },
+  {
+    "dep": 93,
+    "nomDep": "Seine-Saint-Denis",
+    "chefLieu":"",
+    "reg": "Île-de-France"
+  },
+  {
+    "dep": 94,
+    "nomDep": "Val-de-Marne",
+    "chefLieu":"",
+    "reg": "Île-de-France"
+  },
+  {
+    "dep": 95,
+    "nomDep": "Val-d'Oise",
+    "chefLieu":"",
+    "reg": "Île-de-France"
+  },
+  {
+    "dep": 971,
+    "nomDep": "Guadeloupe",
+    "chefLieu":"",
+    "reg": "Guadeloupe"
+  },
+  {
+    "dep": 972,
+    "nomDep": "Martinique",
+    "chefLieu":"",
+    "reg": "Martinique"
+  },
+  {
+    "dep": 973,
+    "nomDep": "Guyane",
+    "chefLieu":"",
+    "reg": "Guyane"
+  },
+  {
+    "dep": 974,
+    "nomDep": "La Réunion",
+    "chefLieu":"",
+    "reg": "La Réunion"
+  },
+  {
+    "dep": 976,
+    "nomDep": "Mayotte",
+    "chefLieu":"",
+    "reg": "Mayotte"
+  }
+]

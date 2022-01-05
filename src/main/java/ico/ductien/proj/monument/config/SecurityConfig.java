@@ -60,6 +60,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.PATCH, "/api/celebrites*").access("hasRole('ROLE_ADMIN')")
         .antMatchers(HttpMethod.DELETE, "/api/celebrites*").access("hasRole('ROLE_ADMIN')")
         .antMatchers(HttpMethod.GET, "/api/celebrites*").access("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
+        .antMatchers(HttpMethod.POST, "/api/upload*").permitAll()
+        .antMatchers(HttpMethod.GET, "/api/photos*").permitAll()
         .and()
         .addFilterBefore(jwtAuthenticationTokenFilter(), UsernamePasswordAuthenticationFilter.class)
         .exceptionHandling().accessDeniedHandler(customAccessDeniedHandler());
