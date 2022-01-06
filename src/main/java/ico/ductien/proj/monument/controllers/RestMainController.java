@@ -347,7 +347,7 @@ public class RestMainController {
 			      .map(f -> f.substring(originalFileName.lastIndexOf(".") + 1));
 		String fileName = UUID.randomUUID().toString() + '.'+extension.get();
 		
-		String rootPath = "./src/main/upload/static/";
+		String rootPath = "j2e_monument/src/main/upload/static/";
 		File dir = new File(rootPath + File.separator + "images");
 		if (!dir.exists()) {dir.mkdir();}
 		
@@ -367,7 +367,7 @@ public class RestMainController {
 	@RequestMapping(value="/api/photos/{filename:.+}", method=RequestMethod.GET)
 	public ResponseEntity<Resource> downloadFile(@PathVariable String filename) throws MalformedURLException{
 		
-		String rootPath = "./src/main/upload/static/";
+		String rootPath = "j2e_monument/src/main/upload/static/";
 		File file = new File(rootPath + File.separator + "images/"+filename);
 		Resource resource = new UrlResource(file.toURI());
 	
